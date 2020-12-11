@@ -1,7 +1,12 @@
-# echoCTF Target Writeup: flanders / 10.0.100.34
+# echoCTF flanders / 10.0.100.34 Writeup
 by **Staff Member ~ 0xRar** \
-https://echoctf.red
 
+## Target details
+* https://echoctf.red/target/13
+* Beginner, Rootable, Timed
+* 4: Flags (root, env, 2:system)
+* 1: Service
+* 4,800 pts
 
 ## Scanning
 First thing to do is run nmap and see what kind of services are running on the system
