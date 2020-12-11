@@ -4,7 +4,7 @@ by **Staff Member ~ 0xRar** https://echoctf.red/profile/2163092
 
 ## Target details
 **Description**
-> Flanders simple and kind, always ready to to give a helping hand. His favorite catch phrase is `Okily Dokily`
+> Flanders simple and kind, always ready to give a helping hand. His favorite catch phrase is `Okily Dokily`
 >
 > _Catch phrase sounds like a pass phrase, only without space_
 
