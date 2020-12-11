@@ -37,9 +37,29 @@ The only flag i could grab at this stage was `/etc/passwd` so I did just that an
 Now we need to escalate our privileges... Lets gather a few extra details about the system and figure out how to escalate into `root`.
 
 1. Checking for local files i found that there is a file at `.ssh/mykey` and by the looks of it, it seems it is an ssh private key
-2. Checking for other listening services on the system with `ss -ant` revealed another ssh service running but its listening on `localhost:22`
+```sh
+ETSCTF@flanders:~$ ls .ssh/
+mykey  mykey.pub
+```
 
-Combining the two, I tried to connect to the local service with the key i found,
+2. Checking for other listening services on the system with `ss -ant` revealed another ssh service running but its listening
+```sh
+ETSCTF@flanders:/$ ss -ant
+State      Recv-Q Send-Q Local Address:Port               Peer Address:Port              
+LISTEN     0      10           *:6022                     *:*
+LISTEN     0      128    127.0.0.1:22                     *:*
+```
+
+3. Checking for running processes provided a few more details, such as that there are two ssh servers running on the system. The one we are connected on runs as user `ETSCTF` which explains why we got droped to that user, when we logged in. The other however is running as root.
+```sh
+ETSCTF@flanders:~$ ps -eafww
+UID        PID  PPID  C STIME TTY          TIME CMD
+root         1     0  0 14:11 pts/0    00:00:00 /bin/bash /entrypoint.sh default
+root        20     1  0 14:11 ?        00:00:00 /usr/sbin/sshd
+ETSCTF      39    38  0 14:11 ?        00:00:00 /usr/src/build/examples/ssh_server_fork --hostkey=/etc/ssh/Essh_host_rsa_key --ecdsakey=/etc/ssh/Essh_host_ecdsa_key --dsakey=/etc/ssh/Essh_host_dsa_key --rsakey=/etc/ssh/Essh_host_rsa_key -p 6022 0.0.0.0
+```
+
+Combining the details from all the previous steps, I tried to connect to the local service with the key I found,
 ```sh
 ssh -p 22 -i ~/.ssh/mykey root@127.0.0.1
 ```
@@ -57,5 +77,5 @@ If you have any questions, i can be reached at the [echoCTF discord server](http
 _Special thanks to Echothrust's `databus (Pantelis Roditis)` for providing these amazing machines \
 and for developing the platform._
 
-### Disclaimer :
+### Disclaimer
 This writeup is just a quick step-by-step of the target solution, the actual machine took a lot more time and research.
