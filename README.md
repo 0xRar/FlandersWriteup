@@ -1,9 +1,9 @@
-## Flanders writeup 
+# echoCTF Target Writeup: flanders / 10.0.100.34
 by **Staff Member ~ 0xRar** \
 https://echoctf.red
 
 
-### Scanning
+## Scanning
 First thing to do is run nmap and see what kind of services are running on the system
 
 ```sh
@@ -22,7 +22,7 @@ PORT     STATE SERVICE VERSION
 
 The only service that is running is this ssh service which is based on `libssh 0.8.1`.
 
-### Gaining Access
+## Gaining Access
 After looking around for `libssh`, I found two different potential ways to try out.
 * One was to try for default username and passwords
 * The other was to exploit a vulnerability on that particular version of libssh (CVE-2018-10933)
@@ -33,7 +33,7 @@ Giving them a try with `ssh -p 6022 myuser@10.0.100.34` and... it worked, i was 
 
 The only flag i could grab at this stage was `/etc/passwd` so I did just that and claimed the flag from the file.
 
-### Privilege Escalation
+## Privilege Escalation
 Now we need to escalate our privileges... Lets gather a few extra details about the system and figure out how to escalate into `root`.
 
 1. Checking for local files i found that there is a file at `.ssh/mykey` and by the looks of it, it seems it is an ssh private key
@@ -77,5 +77,5 @@ If you have any questions, i can be reached at the [echoCTF discord server](http
 _Special thanks to Echothrust's `databus (Pantelis Roditis)` for providing these amazing machines \
 and for developing the platform._
 
-### Disclaimer
+## Disclaimer
 This writeup is just a quick step-by-step of the target solution, the actual machine took a lot more time and research.
