@@ -1,5 +1,6 @@
 # echoCTF flanders / 10.0.100.34 Writeup
-by **Staff Member ~ 0xRar** \
+by **Staff Member ~ 0xRar** https://echoctf.red/profile/2163092
+![](https://echoctf.red/profile/2163092/badge)
 
 ## Target details
 **Description**
