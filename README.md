@@ -5,7 +5,7 @@ by **Staff Member ~ 0xRar** \
 **Description**
 > Flanders simple and kind, always ready to to give a helping hand. His favorite catch phrase is `Okily Dokily`
 >
-> Catch phrase sounds like a pass phrase, only without space
+> _Catch phrase sounds like a pass phrase, only without space_
 
 * https://echoctf.red/target/13
 * Beginner, Rootable, Timed
