@@ -72,7 +72,7 @@ ETSCTF      39    38  0 14:11 ?        00:00:00 /usr/src/build/examples/ssh_serv
 
 Combining the details from all the previous steps, I tried to connect to the local service with the key I found,
 ```sh
-ssh -p 22 -i ~/.ssh/mykey root@127.0.0.1
+ETSCTF@flanders:~$ ssh -p 22 -i ~/.ssh/mykey root@127.0.0.1
 ```
 
 Unfortunately the key seems to be protected by a passphrase. After a few random attempts i ended up re-reading the target description again, and this time certain things started to sound a bit more revealing: **His favorite catch phrase is `Okily Dokily`**
