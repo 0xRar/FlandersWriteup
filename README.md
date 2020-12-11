@@ -2,6 +2,11 @@
 by **Staff Member ~ 0xRar** \
 
 ## Target details
+**Description**
+> Flanders simple and kind, always ready to to give a helping hand. His favorite catch phrase is `Okily Dokily`
+>
+> Catch phrase sounds like a pass phrase, only without space
+
 * https://echoctf.red/target/13
 * Beginner, Rootable, Timed
 * 4: Flags (root, env, 2:system)
