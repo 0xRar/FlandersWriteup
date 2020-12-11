@@ -19,52 +19,43 @@ PORT     STATE SERVICE VERSION
 ```
 
 ### Gain Access :
+As we see in the nmap scan we have an ssh open on port `6022` the first step is to search for default creds for `libssh`
+
 ```
-As we see in the nmap scan we have an ssh open on port 6022
-
-the first step is to search for default creds for libssh
-
 creds : {username = my**** || password = mypass****}
-
-lets connect to ssh: ssh -p 6022 myuser@10.0.100.34
-
-connected to ssh as a normal user {ETSCTF}
-
-flags: passwd, shadow, environment(proc/1/environ) , root
-
-the only flag you can get now is {/etc/passwd}
-
-its the only flag we can access with a user access
 ```
+
+lets connect to ssh: `ssh -p 6022 myuser@10.0.100.34`
+
+connected to ssh as a normal user `ETSCTF` 
+
+flags: /etc/passwd, /etc/shadow, environment(proc/1/environ), root 
+
+the only flag you can get now is `/etc/passwd` its the only flag we can access with a user access
 
 ### Privilege Escalation : 
+* Lets use the command `ss -ant` to see if there is any services. Running locally, we have another ssh port open on `127.0.0.1:22`. 
+* in `/home/ETSCTF` if we use `ls -la` we can see hidden files and dir's. there is a dir that cought my eye which is `.ssh` this dir usually used to store
+information about ssh or ssh keys lets try logging in with the key:
+
+```sh
+ssh -p 22 -i mykey root@127.0.0.1
 ```
-Lets use the command {ss -ant} to see if there is any services
 
-running locally, we have another ssh port open on {127.0.0.1:22}
+Oops! we need a passphrase lets get back and read the target's description 
 
-in {/home/ETSCTF} if we used the command {ls -la} we can see hidden files and dir's
-
-there is a dir cought my eye which is {.ssh} this dir usually used to store
-
-information about ssh or ssh keys lets try logging in with the key :
-
-{ssh -p 22 -i mykey root@127.0.0.1}
-
-Oops! we need a passphrase lets get back and read the target's descreption
-
-{His favorite catch phrase is [OkilyDokily]} lets try out Okily Dokily
-
-with no spaces, BOOM! we have root access to the target flanders
-
-got get your flags GOOD LUCK :) .
 ```
+His favorite catch phrase is Okily Dokily
+```
+
+lets try out `Okily Dokily`, no luck. Try without spaces, BOOM! we have root access to the target flanders
+
+go get your flags GOOD LUCK :)
+
+
+* For any questions feel free to join the echoCTF.RED discord server: https://discord.gg/2SRkBHHGQB
+
+_Special thanks to databus(Pantelis Roditis) for providing these amazing machines<br> and the development of the platform._
 
 ### Disclaimer :
-```
 This writeup is just a shortcut the actual machine took further time and research.
-```
-
-### For any question please join the discord server : https://discord.gg/2SRkBHHGQB
-
-### Special thanks to databus(Pantelis Roditis) for providing these amazing machines<br> and the development of the platform.
