@@ -23,40 +23,39 @@ PORT     STATE SERVICE VERSION
 The only service that is running is this ssh service which is based on `libssh 0.8.1`.
 
 ### Gaining Access
-After looking around for `libssh`, i thought to check if there are any default credentials for this service, and as luck would have it, after a bit of searching i found these
+After looking around for `libssh`, I found two different potential ways to try out.
+* One was to try for default username and passwords
+* The other was to exploit a vulnerability on that particular version of libssh (CVE-2018-10933)
 
-```
-username = my****
-password = mypass****
-```
+After a quick check to see if there are any default credentials for this service, proved fruitful. I managed to find these https://github.com/simonsj/libssh/blob/master/examples/ssh_server_fork.c#L51-L52
 
-Connected with `ssh -p 6022 myuser@10.0.100.34` and was logged in as the user `ETSCTF`.
+Giving them a try with `ssh -p 6022 myuser@10.0.100.34` and... it worked, i was logged in as the user `ETSCTF`.
 
-The only flag i could grab at this stage was `/etc/passwd`.
+The only flag i could grab at this stage was `/etc/passwd` so I did just that and claimed the flag from the file.
 
 ### Privilege Escalation
-* Lets use the command `ss -ant` to see if there is any services. Running locally, we have another ssh port open on `127.0.0.1:22`. 
-* in `/home/ETSCTF` if we use `ls -la` we can see hidden files and dir's. there is a dir that cought my eye which is `.ssh` this dir usually used to store
-information about ssh or ssh keys lets try logging in with the key:
+Now we need to escalate our privileges... Lets gather a few extra details about the system and figure out how to escalate into `root`.
 
+1. Checking for local files i found that there is a file at `.ssh/mykey` and by the looks of it, it seems it is an ssh private key
+2. Checking for other listening services on the system with `ss -ant` revealed another ssh service running but its listening on `localhost:22`
+
+Combining the two, I tried to connect to the local service with the key i found,
 ```sh
-ssh -p 22 -i mykey root@127.0.0.1
+ssh -p 22 -i ~/.ssh/mykey root@127.0.0.1
 ```
 
-Oops! we need a passphrase lets get back and read the target's description 
+Unfortunately the key seems to be protected by a passphrase. After a few random attempts i ended up re-reading the target description again, and this time certain things started to sound a bit more revealing: **His favorite catch phrase is `Okily Dokily`**
 
-```
-His favorite catch phrase is Okily Dokily
-```
-
-lets try out `Okily Dokily`, no luck. Try without spaces, BOOM! we have root access to the target flanders
-
-go get your flags GOOD LUCK :)
+The first attempt, using `Okily Dokily`, was not successful. Tried again without spaces (`OkilyDokily`) and ... **BOOM!** we have `root` access on flanders.
 
 
-* For any questions feel free to join the echoCTF.RED discord server: https://discord.gg/2SRkBHHGQB
+Now go get your flags and **GOOD LUCK!** :)
 
-_Special thanks to databus(Pantelis Roditis) for providing these amazing machines<br> and the development of the platform._
+
+If you have any questions, i can be reached at the [echoCTF discord server](https://discord.gg/2SRkBHHGQB)
+
+_Special thanks to Echothrust's `databus (Pantelis Roditis)` for providing these amazing machines \
+and for developing the platform._
 
 ### Disclaimer :
-This writeup is just a shortcut the actual machine took further time and research.
+This writeup is just a quick step-by-step of the target solution, the actual machine took a lot more time and research.
